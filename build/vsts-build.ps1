@@ -55,7 +55,7 @@ Get-ChildItem -Path "$($publishDir.FullName)\plugEvents\internal\scripts\" -Recu
 }
 
 #region Update the psm1 file & Cleanup
-[System.IO.File]::WriteAllText("$($publishDir.FullName)\plugEvents\plugEvents.psm1", ($text -join "`n`n"), [System.Text.Encoding]::UTF8)
+[System.IO.File]::WriteAllText("$($publishDir.FullName)\plugEvents\PlugEvents.psm1", ($text -join "`n`n"), [System.Text.Encoding]::UTF8)
 Remove-Item -Path "$($publishDir.FullName)\plugEvents\internal" -Recurse -Force
 Remove-Item -Path "$($publishDir.FullName)\plugEvents\functions" -Recurse -Force
 #endregion Update the psm1 file & Cleanup
@@ -74,8 +74,8 @@ if ($AutoVersion)
 		throw "Couldn't find plugEvents on repository $($Repository) : $_"
 	}
 	$newBuildNumber = $remoteVersion.Build + 1
-	[version]$localVersion = (Import-PowerShellDataFile -Path "$($publishDir.FullName)\plugEvents\plugEvents.psd1").ModuleVersion
-	Update-ModuleManifest -Path "$($publishDir.FullName)\plugEvents\plugEvents.psd1" -ModuleVersion "$($localVersion.Major).$($localVersion.Minor).$($newBuildNumber)"
+	[version]$localVersion = (Import-PowerShellDataFile -Path "$($publishDir.FullName)\plugEvents\PlugEvents.psd1").ModuleVersion
+	Update-ModuleManifest -Path "$($publishDir.FullName)\plugEvents\PlugEvents.psd1" -ModuleVersion "$($localVersion.Major).$($localVersion.Minor).$($newBuildNumber)"
 }
 #endregion Updating the Module Version
 

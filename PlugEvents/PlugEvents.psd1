@@ -1,10 +1,10 @@
 ﻿@{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'plugEvents.psm1'
+RootModule = 'PlugEvents.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.0.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
