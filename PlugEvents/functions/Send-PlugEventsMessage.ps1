@@ -40,6 +40,10 @@
         [Parameter(Mandatory = $false, Position = 4)]
         [Switch] $Async
     )
+
+    # Send telemetry data
+    Send-THEvent -ModuleName "plugEvents" -EventName "Receive-PlugEventsMessage" -PropertiesHash @{Timeout = $Timeout; Async = $Async}
+
     # Check if a connection is create
     if ($Connection.State -ne [System.Net.WebSockets.WebSocketState]::Open) {
         throw "Plug-Events: no open connection was detected. Please run Connect-PlugEvents first."

@@ -15,6 +15,9 @@
     [CmdLetBinding()]
     Param ()
 
+    # Send telemetry data
+    Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsCancellationToken"
+
     # Return the cancellationtoken object
     $Script:cancellationToken
 }

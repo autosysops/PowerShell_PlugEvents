@@ -29,6 +29,9 @@
         [String] $ConnectionToken = (Open-PlugEventsWebsocket -Endpoint $Endpoint).connectionToken
     )
 
+    # Send telemetry data
+    Send-THEvent -ModuleName "plugEvents" -EventName "Connect-PlugEvents"
+
     # Create the websocket client and cancellation token
     $Script:websocket = [System.Net.WebSockets.ClientWebSocket]::new()
     $Script:cancellationToken = [System.Threading.CancellationTokenSource]::new()

@@ -49,6 +49,9 @@
         [Int] $First = 0
     )
 
+    # Send telemetry data
+    Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsEndpoint" -PropertiesHash @{Type = $Type; First = $First }
+
     # Get all the endpoints from the txt file
     $nodemap = Invoke-RestMethod -uri "https://www.plug.events/nodemap.txt" -Method GET
 

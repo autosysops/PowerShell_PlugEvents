@@ -17,6 +17,9 @@
     [CmdLetBinding()]
     Param ()
 
+    # Send telemetry data
+    Send-THEvent -ModuleName "plugEvents" -EventName "Disconnect-PlugEvents"
+
     # Close the connection
     $null = $Script:websocket.CloseAsync(
         [System.Net.WebSockets.WebSocketCloseStatus]::Empty,

@@ -15,6 +15,9 @@
     [CmdLetBinding()]
     Param ()
 
+    # Send telemetry data
+    Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsConnection"
+
     # Return the websocket object
     $Script:websocket
 }

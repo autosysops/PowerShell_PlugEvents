@@ -39,6 +39,10 @@
         [Parameter(Mandatory = $false, Position = 4)]
         [Int] $Top = 999
     )
+
+    # Send telemetry data
+    Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsUmbrellaEvent" -PropertiesHash @{Top = $Top}
+
     # Set up the message
     $message = '{"target":"GetNetworkViewPage2","arguments":[{"recKind":1,"slug":"'+$Id+'","slugs":null,"direction":103,"startAt":0,"maxCount":'+$Top+',"nameContains":"","roleSlugFilters":null,"isClaimed":null,"seq1Filter":null,"seq1InverseFilter":null,"minEventTime":"'+($StartDate | Get-Date -Format "yyyyMMdd0000")+'","maxEventTime":"'+($EndDate | Get-Date -Format "yyyyMMdd0000")+'","interestSlug":null,"subinterest":null,"localeSlug":null,"toRoleNameContains":""}],"invocationId":"9","type":1}'
 

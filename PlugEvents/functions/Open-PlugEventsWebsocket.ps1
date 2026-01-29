@@ -35,6 +35,9 @@
         [String] $Endpoint = (Get-PlugEventsEndpoint -Type p -First 1).Types.Endpoint
     )
 
+    # Send telemetry data
+    Send-THEvent -ModuleName "plugEvents" -EventName "Open-PlugEventsWebsocket"
+
     # Open the connection
     Invoke-RestMethod -Uri "https://$Endpoint/hub1/negotiate?negotiateVersion=1" -Method POST
 }
