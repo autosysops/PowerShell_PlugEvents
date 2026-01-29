@@ -59,7 +59,11 @@
     Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsOrg" -PropertiesHash @{Filter = ($Filter -ne $null); Interest = ($Interest -ne $null); SubInterest = ($SubInterest -ne $null); Locale = ($Locale -ne $null); Top = $Top; Expand = $Expand.IsPresent}
 
     # Set up the message
-    $message = '{"target":"CapitalInSpaceSearch","arguments":[{"sortOrder":"AlphaByName","mode":"Single","criteria":{"subinterest":' + ("""$SubInterest""" ?? "null") + ',"localeSlug":' + ("""$Locale""" ?? "null") + ',"interestSlug":' + ("""$Interest""" ?? "null") + ',"ultracollapseCode":null,"ccKind":1,"minTime":null,"maxTime":null,"searchTerm":' + ("""$Filter""" ?? "null") + '},"nExpandedResults":' + $Top + ',"nCollapsedResults": 0}],"invocationId":"32","type":1}'
+    $si = if ($SubInterest) { """$SubInterest""" } else { "null" }
+    $li = if ($Locale) { """$Locale""" } else { "null" }
+    $ii = if ($Interest) { """$Interest""" } else { "null" }
+    $fi = if ($Filter) { """$Filter""" } else { "null" }
+    $message = '{"target":"CapitalInSpaceSearch","arguments":[{"sortOrder":"AlphaByName","mode":"Single","criteria":{"subinterest":' + $si + ',"localeSlug":' + $li + ',"interestSlug":' + $ii + ',"ultracollapseCode":null,"ccKind":1,"minTime":null,"maxTime":null,"searchTerm":' + $fi + '},"nExpandedResults":' + $Top + ',"nCollapsedResults": 0}],"invocationId":"32","type":1}'
 
     # Send the message
     Send-PlugEventsMessage -Message $message
