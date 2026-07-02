@@ -35,7 +35,7 @@ On first import you will receive a message about telemetry being enabled (see [T
 
 All data functions communicate over a persistent WebSocket connection to the Plug.Events back-end. You must connect before calling any data functions, and disconnect when you are done.
 
-**Connect:**
+**Connect anonymously:**
 
 ```PowerShell
 Connect-PlugEvents
@@ -46,6 +46,24 @@ Connect-PlugEvents
 ```PowerShell
 Connect-PlugEvents -Endpoint "eu1.plug.events" -ConnectionToken "your-token"
 ```
+
+**Connect with a Plug.Events account:**
+
+Pass a `PSCredential` object (username = email address, password = account password) to authenticate after the WebSocket handshake. The password is sent in plain text over the WebSocket, which is itself secured by TLS (`wss://`). You will be prompted to confirm this before the password is transmitted.
+
+```PowerShell
+$cred = Get-Credential          # enter your Plug.Events email and password
+Connect-PlugEvents -Credential $cred
+```
+
+For unattended scripts, add `-SkipWarning` to suppress the confirmation prompt:
+
+```PowerShell
+$cred = Get-Credential
+Connect-PlugEvents -Credential $cred -SkipWarning
+```
+
+If authentication fails (wrong email or password) the connection is closed automatically and a descriptive error is thrown.
 
 **Disconnect:**
 
@@ -134,6 +152,30 @@ Parameters:
 | `-StartDate` | Start of the date window (default: 30 days ago) | No |
 | `-EndDate` | End of the date window (default: today) | No |
 | `-Top` | Maximum number of results (default: 999) | No |
+
+---
+
+### Adding members to an organization
+
+`Add-PlugEventsOrgMember` adds an organization to another organization with a specified role. **This function requires an authenticated connection** — connect using `Connect-PlugEvents -Credential` before calling it.
+
+```PowerShell
+$cred = Get-Credential
+Connect-PlugEvents -Credential $cred
+
+# Add "yourorg" to "balfolk-nl" with the role "teacher"
+Add-PlugEventsOrgMember -Id "balfolk-nl" -Role "teacher" -Org "yourorg"
+```
+
+Parameters:
+
+| Parameter | Description | Required | Parameter set |
+|---|---|---|---|
+| `-Id` | Slug of the organization to add the member to | Yes | All |
+| `-Role` | Role the added organization will receive (e.g. `teacher`, `performer`) | Yes | All |
+| `-Org` | Slug of the organization to add as a member | Yes | `Org` (default) |
+
+If you call this function without being authenticated, it throws an error immediately without sending any request.
 
 ---
 

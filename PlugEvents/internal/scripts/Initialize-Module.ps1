@@ -5,6 +5,7 @@
 # Create env variables
 $Script:websocket = [System.Net.WebSockets.ClientWebSocket]::new()
 $Script:cancellationToken = [System.Threading.CancellationTokenSource]::new()
+$Script:isAuthenticated = $false
 
 # ===================================================================
 # ================== TELEMETRY ======================================

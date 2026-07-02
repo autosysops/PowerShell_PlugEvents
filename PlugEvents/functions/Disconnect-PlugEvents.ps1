@@ -20,6 +20,9 @@
     # Send telemetry data
     Send-THEvent -ModuleName "plugEvents" -EventName "Disconnect-PlugEvents"
 
+    # Reset authentication state
+    $Script:isAuthenticated = $false
+
     # Close the connection
     $null = $Script:websocket.CloseAsync(
         [System.Net.WebSockets.WebSocketCloseStatus]::Empty,
