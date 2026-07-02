@@ -24,7 +24,7 @@
     )
 
     # Send telemetry data
-    Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsOrgView" -PropertiesHash @{Id = ($Id -ne $null)}
+    Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsOrgView"
 
     # Set up the message
     $message = '{"target":"GetOrgView","arguments":["' + $Id + '"],"invocationId":"1","type":1}'

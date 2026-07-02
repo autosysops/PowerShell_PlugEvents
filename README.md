@@ -155,6 +155,24 @@ Parameters:
 
 ---
 
+### Retrieving an event view
+
+`Get-PlugEventsEventView` returns the full details for a single event by its slug. The slug is the URL-friendly identifier found in Plug.Events event URLs.
+
+```PowerShell
+Connect-PlugEvents
+
+$event = Get-PlugEventsEventView -Id "my-event-2026"
+
+# Access fields on the result
+$event.eventScalar.name
+$event.eventScalar.description
+$event.startTime
+$event.venue
+```
+
+---
+
 ### Adding members to an organization
 
 `Add-PlugEventsOrgMember` adds an organization to another organization with a specified role. **This function requires an authenticated connection** — connect using `Connect-PlugEvents -Credential` before calling it.

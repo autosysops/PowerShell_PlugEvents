@@ -43,7 +43,7 @@
     }
 
     # Send telemetry data
-    Send-THEvent -ModuleName "plugEvents" -EventName "Add-PlugEventsOrgMember" -PropertiesHash @{Role = $Role; ParameterSet = $PSCmdlet.ParameterSetName}
+    Send-THEvent -ModuleName "plugEvents" -EventName "Add-PlugEventsOrgMember" -PropertiesHash @{ParameterSet = $PSCmdlet.ParameterSetName}
 
     # Set up the message
     $message = '{"target":"InviteRoleFilledByOrg","arguments":["' + $Id + '","' + $Role + '","' + $Org + '"],"invocationId":"28","type":1}'

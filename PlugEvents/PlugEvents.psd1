@@ -4,7 +4,7 @@
 RootModule = 'PlugEvents.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.5'
+ModuleVersion = '0.0.6'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -68,6 +68,7 @@ FunctionsToExport = @(
     "Get-PlugEventsCancellationToken",
     "Get-PlugEventsConnection",
     "Get-PlugEventsEndpoint",
+    "Get-PlugEventsEventView",
     "Get-PlugEventsOrg",
     "Get-PlugEventsOrgView",
     "Get-PlugEventsUmbrellaEvent",
