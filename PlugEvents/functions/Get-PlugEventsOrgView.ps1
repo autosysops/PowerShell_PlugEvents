@@ -1,4 +1,4 @@
-function Get-PlugEventsOrgView {
+﻿function Get-PlugEventsOrgView {
     <#
     .SYNOPSIS
         Get the full organization view for a specific organization in Plug.Events.
