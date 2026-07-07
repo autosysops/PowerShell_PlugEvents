@@ -56,7 +56,7 @@
     )
 
     # Send telemetry data
-    Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsOrg" -PropertiesHash @{Filter = ($Filter -ne $null); Interest = ($Interest -ne $null); SubInterest = ($SubInterest -ne $null); Locale = ($Locale -ne $null); Top = $Top; Expand = $Expand.IsPresent}
+    Send-THEvent -ModuleName "plugEvents" -EventName "Get-PlugEventsOrg" -PropertiesHash @{Top = $Top}
 
     # Set up the message
     $si = if ($SubInterest) { """$SubInterest""" } else { "null" }
