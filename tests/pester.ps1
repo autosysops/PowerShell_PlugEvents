@@ -76,14 +76,16 @@ if ($TestGeneral)
 $global:__pester_data.ScriptAnalyzer | Out-Host
 
 #region Test Commands
+$functionTestFiles = @()
 if ($TestFunctions)
 {
 	Write-Host "Proceeding with individual tests"
-	foreach ($file in (Get-ChildItem "$PSScriptRoot\functions" -Recurse -File | Where-Object Name -like "*Tests.ps1"))
-	{
-		if ($file.Name -notlike $Include) { continue }
-		if ($file.Name -like $Exclude) { continue }
+	$functionTestFiles = @(Get-ChildItem "$PSScriptRoot\functions" -Recurse -File | Where-Object Name -like "*Tests.ps1" | Where-Object {
+		$_.Name -like $Include -and $_.Name -notlike $Exclude
+	})
 
+	foreach ($file in $functionTestFiles)
+	{
 		Write-Host "  Executing $($file.Name)"
 		$config.TestResult.OutputPath = Join-Path "$PSScriptRoot\..\TestResults" "TEST-$($file.BaseName).xml"
 		$config.Run.Path = $file.FullName
@@ -111,8 +113,14 @@ if ($TestFunctions)
 if ($TestFunctions -and $EnableCoverage)
 {
 	Write-Host "Calculating code coverage for public functions"
+	if ($functionTestFiles.Count -eq 0)
+	{
+		Write-Host "No function tests selected for coverage run."
+		return
+	}
+
 	$coverageConfig = [PesterConfiguration]::Default
-	$coverageConfig.Run.Path = Join-Path $PSScriptRoot "functions"
+	$coverageConfig.Run.Path = @($functionTestFiles.FullName)
 	$coverageConfig.Run.PassThru = $true
 	$coverageConfig.Output.Verbosity = $Output
 	$coverageConfig.CodeCoverage.Enabled = $true
@@ -122,6 +130,12 @@ if ($TestFunctions -and $EnableCoverage)
 	$coverageConfig.CodeCoverage.OutputFormat = "JaCoCo"
 
 	$coverageResult = Invoke-Pester -Configuration $coverageConfig
+	if ($coverageResult.FailedCount -gt 0)
+	{
+		$failedCoverageTests = $coverageResult.Tests | Where-Object Result -ne 'Passed' | Select-Object -ExpandProperty Name
+		throw "Coverage run contained failing tests: $($failedCoverageTests -join ', ')"
+	}
+
 	[xml]$coverageXml = (Get-Content -Path $coverageOutputPath) -join "`n"
 	$lineCounters = $coverageXml.report.package.counter | Where-Object type -eq 'LINE'
 	$lineMissed = ($lineCounters | Measure-Object -Property missed -Sum).Sum
