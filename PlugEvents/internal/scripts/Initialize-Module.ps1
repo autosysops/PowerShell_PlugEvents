@@ -6,6 +6,8 @@
 $Script:websocket = [System.Net.WebSockets.ClientWebSocket]::new()
 $Script:cancellationToken = [System.Threading.CancellationTokenSource]::new()
 $Script:isAuthenticated = $false
+$Script:PlugEventsWebsocketFactory = { [System.Net.WebSockets.ClientWebSocket]::new() }
+$Script:PlugEventsCancellationTokenFactory = { [System.Threading.CancellationTokenSource]::new() }
 
 # ===================================================================
 # ================== TELEMETRY ======================================

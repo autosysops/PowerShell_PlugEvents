@@ -1,7 +1,15 @@
 ﻿# Description
 
-This is where the function tests go.
+This folder contains unit tests for module functions.
 
-Make sure to put them in folders reflecting the actual module structure.
+## Structure
 
-It is not necessary to differentiate between internal and public functions here.
+- Use one test file per function.
+- Name each file as FunctionName.Tests.ps1.
+- Keep shared test helpers in TestHelpers.ps1.
+
+## Mocking
+
+- All tests mock Plug.Events API and websocket interactions.
+- Synthetic response payloads are stored in tests/fixtures.
+- Fixture data is intentionally fake and safe to edit for test scenarios.

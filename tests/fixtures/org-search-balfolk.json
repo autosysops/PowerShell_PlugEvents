@@ -1,0 +1,30 @@
+[
+  {
+    "name": "TEST Org Alpha",
+    "slug": "test-org-alpha",
+    "status": 5,
+    "description": "TEST DATA",
+    "time": "203001010000",
+    "groupingMajor": "T",
+    "expansionMode": "e"
+  },
+  {
+    "name": null,
+    "slug": null,
+    "status": 0,
+    "description": null,
+    "time": null,
+    "groupingMajor": "",
+    "expansionMode": "uc",
+    "ultracollapseCount": 1
+  },
+  {
+    "name": "TEST Org Beta",
+    "slug": "test-org-beta",
+    "status": 5,
+    "description": "TEST DATA",
+    "time": "203001020000",
+    "groupingMajor": "T",
+    "expansionMode": "e"
+  }
+]

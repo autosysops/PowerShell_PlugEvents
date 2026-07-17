@@ -1,5 +1,10 @@
 ﻿on: [pull_request]
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
   validate:
 
@@ -13,3 +18,15 @@ jobs:
     - name: Validate
       run: .\build\vsts-validate.ps1
       shell: powershell
+    - name: Publish Test Report
+      if: always()
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      with:
+        check_name: PlugEvents Pester Results
+        files: TestResults/TEST-*.xml
+    - name: Upload Test Artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: testresults-pr
+        path: TestResults/*

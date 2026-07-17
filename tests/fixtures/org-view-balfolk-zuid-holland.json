@@ -1,0 +1,18 @@
+{
+  "mainSlug": "test-org-zuid",
+  "subtitle": "TEST DATA: synthetic organization profile",
+  "isSuccess": true,
+  "errorCode": 0,
+  "message": null,
+  "orgScalar": {
+    "url": "https://example.test/org/test-org-zuid",
+    "email": "test-org-zuid@example.test",
+    "address": "TEST REGION"
+  },
+  "smLinks": [
+    {
+      "label": "TestSocial",
+      "url": "https://example.test/social/test-org-zuid"
+    }
+  ]
+}

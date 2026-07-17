@@ -1,0 +1,20 @@
+{
+  "mainSlug": "test-event-under-umbrella-1",
+  "subtitle": "TEST DATA: synthetic event profile",
+  "isSuccess": true,
+  "errorCode": 0,
+  "message": null,
+  "scalar": {
+    "startDate": "20300115",
+    "startTime": "1900",
+    "endDate": "20300115",
+    "endTime": "2200"
+  },
+  "capitalScalar": {
+    "status": 5,
+    "name": "TEST Event One"
+  },
+  "capitalExtra": {
+    "publishedByOrgSlug": "test-org-zuid"
+  }
+}

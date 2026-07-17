@@ -1,0 +1,44 @@
+[
+  {
+    "direction": 103,
+    "fromSlug": "balfolk-nl",
+    "toPublishedByName": "TEST Publisher A",
+    "toPublishedBySlug": "test-org-zuid",
+    "toKind": 2,
+    "toSlug": "test-event-under-umbrella-1",
+    "sortValue": "203001151900",
+    "toName": "TEST Event One",
+    "toEventStartTime": "203001151900",
+    "toEventEndTime": "203001152200",
+    "toEventReadableTime": "January 15, 2030 (Tue) 19:00 - 22:00",
+    "toCapitalStatus": 5
+  },
+  {
+    "direction": 103,
+    "fromSlug": "balfolk-nl",
+    "toPublishedByName": "TEST Publisher B",
+    "toPublishedBySlug": "test-org-north",
+    "toKind": 2,
+    "toSlug": "test-event-under-umbrella-2",
+    "sortValue": "203002101830",
+    "toName": "TEST Event Two",
+    "toEventStartTime": "203002101830",
+    "toEventEndTime": "203002102130",
+    "toEventReadableTime": "February 10, 2030 (Sun) 18:30 - 21:30",
+    "toCapitalStatus": 5
+  },
+  {
+    "direction": 103,
+    "fromSlug": "balfolk-nl",
+    "toPublishedByName": "TEST Publisher C",
+    "toPublishedBySlug": "test-org-east",
+    "toKind": 2,
+    "toSlug": "test-event-under-umbrella-3",
+    "sortValue": "203003051700",
+    "toName": "TEST Event Three",
+    "toEventStartTime": "203003051700",
+    "toEventEndTime": "203003052000",
+    "toEventReadableTime": "March 5, 2030 (Tue) 17:00 - 20:00",
+    "toCapitalStatus": 5
+  }
+]

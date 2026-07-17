@@ -64,8 +64,8 @@
     $Script:isAuthenticated = $false
 
     # Create the websocket client and cancellation token
-    $Script:websocket = [System.Net.WebSockets.ClientWebSocket]::new()
-    $Script:cancellationToken = [System.Threading.CancellationTokenSource]::new()
+    $Script:websocket = & $Script:PlugEventsWebsocketFactory
+    $Script:cancellationToken = & $Script:PlugEventsCancellationTokenFactory
 
     # Add the option for json
     $Script:websocket.Options.AddSubProtocol('json')

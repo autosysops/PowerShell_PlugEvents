@@ -3,6 +3,11 @@
 
 	$TestFunctions = $true,
 
+	$EnableCoverage = $true,
+
+	[double]
+	$CoverageThreshold = 90,
+
 	[ValidateSet('None', 'Normal', 'Detailed', 'Diagnostic')]
 	[Alias('Show')]
 	$Output = "None",
@@ -101,6 +106,43 @@ if ($TestFunctions)
 	}
 }
 #endregion Test Commands
+
+#region Code Coverage
+if ($TestFunctions -and $EnableCoverage)
+{
+	Write-Host "Calculating code coverage for public functions"
+	$coverageConfig = [PesterConfiguration]::Default
+	$coverageConfig.Run.Path = Join-Path $PSScriptRoot "functions"
+	$coverageConfig.Run.PassThru = $true
+	$coverageConfig.Output.Verbosity = $Output
+	$coverageConfig.CodeCoverage.Enabled = $true
+	$coverageConfig.CodeCoverage.Path = @("$PSScriptRoot\..\plugEvents\functions\*.ps1")
+	$coverageOutputPath = Join-Path "$PSScriptRoot\..\TestResults" "coverage.xml"
+	$coverageConfig.CodeCoverage.OutputPath = $coverageOutputPath
+	$coverageConfig.CodeCoverage.OutputFormat = "JaCoCo"
+
+	$coverageResult = Invoke-Pester -Configuration $coverageConfig
+	[xml]$coverageXml = (Get-Content -Path $coverageOutputPath) -join "`n"
+	$lineCounters = $coverageXml.report.package.counter | Where-Object type -eq 'LINE'
+	$lineMissed = ($lineCounters | Measure-Object -Property missed -Sum).Sum
+	$lineCovered = ($lineCounters | Measure-Object -Property covered -Sum).Sum
+	$lineTotal = $lineMissed + $lineCovered
+	$coveragePercent = if ($lineTotal -gt 0)
+	{
+		[math]::Round((($lineCovered / $lineTotal) * 100), 2)
+	}
+	else
+	{
+		100
+	}
+
+	Write-Host "Code coverage: $coveragePercent% ($lineCovered/$lineTotal lines)"
+	if ($coveragePercent -lt $CoverageThreshold)
+	{
+		throw "Code coverage $coveragePercent% is below threshold $CoverageThreshold%."
+	}
+}
+#endregion Code Coverage
 
 $testresults | Sort-Object Describe, Context, Name, Result, Message | Format-List
 

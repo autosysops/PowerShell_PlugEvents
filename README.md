@@ -1,7 +1,7 @@
 ﻿# plugEvents
 
-![example workflow](https://github.com/autosysops/PowerShell_plugEvents/actions/workflows/build.yml/badge.svg)
-[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/plugEvents.svg)](https://www.powershellgallery.com/packages/plugEvents/)
+![build workflow](https://github.com/autosysops/PowerShell_PlugEvents/actions/workflows/build.yml/badge.svg)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PlugEvents.svg)](https://www.powershellgallery.com/packages/PlugEvents/)
 
 PowerShell module to interact with [Plug.Events](https://plug.events) — a platform for community events focused on folk dance and music.
 
@@ -261,6 +261,34 @@ Disconnect-PlugEvents
 ## Telemetry
 
 This module collects anonymous usage telemetry (function names and non-identifiable parameter metadata) via the [TelemetryHelper module](https://github.com/nyanhp/TelemetryHelper). No personal data or parameter values are transmitted. You can opt out by following the instructions shown on first import.
+
+## Testing And Contributing
+
+This project uses Pester with mocked Plug.Events calls so tests can run reliably without a live Plug.Events test environment.
+
+### Test principles
+
+- Each function has its own test file in tests/functions.
+- Websocket and API calls are mocked in unit tests.
+- Test fixtures are stored in tests/fixtures.
+- Fixture payloads are synthetic test data, not production snapshots.
+
+### Running tests locally
+
+```PowerShell
+.\build\vsts-prerequisites.ps1
+.\build\vsts-validate.ps1
+```
+
+The validate script runs general checks, all function tests, and code coverage validation.
+
+### Updating fixtures
+
+If you add or change behavior that depends on API response shape:
+
+1. Update or add files under tests/fixtures.
+2. Keep values clearly synthetic and human-readable.
+3. Update only the tests for the function you changed.
 
 ## Credits
 
